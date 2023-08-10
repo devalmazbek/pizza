@@ -1,0 +1,8 @@
+.counter_container {
+  font-size: 18px;
+}
+
+.counter_container button {
+  padding: 10px;
+  margin: 10px;
+}
