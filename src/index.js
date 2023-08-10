@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import Counter from "./components/couter/counter";
+
+import { pizzaData } from "./data";
+import "./index.css";
 
 function App() {
   return (
@@ -23,21 +25,19 @@ function Header() {
 }
 
 function Menu() {
+  const pizza = pizzaData;
   return (
     <div className="menu">
       <h2>Our Menu</h2>
-      <Pizza
-        name="Focaccia"
-        ingredients="Bread with italian olive oil and rosemary"
-        price={6}
-        photoName="pizzas/focaccia.jpg"
-      />
-      <Pizza
-        name="Pizza Margherita"
-        ingredients="Tomato and mozarella"
-        price={10}
-        photoName="pizzas/margherita.jpg"
-      />
+      <ul className="pizzas">
+        {pizza.length ? (
+          pizza.map((item) => {
+            return <Pizza item={item} key={item.name} />;
+          })
+        ) : (
+          <h3>We are work with our menu.</h3>
+        )}
+      </ul>
     </div>
   );
 }
@@ -50,21 +50,33 @@ function Footer() {
 
   return (
     <footer className="footer">
-      {`${isOpen ? "We are cureently open." : "Closed"}`}
+      {isOpen ? (
+        <div className="order">
+          <p>We are cureently open. Open until {close}</p>
+          <button className="btn">Order Now</button>
+        </div>
+      ) : (
+        <p>
+          We are happy to welcome you between {open} and {close}
+        </p>
+      )}
     </footer>
   );
 }
 
-function Pizza(props) {
+function Pizza({ item }) {
+  const { name, photoName, ingredients, price } = item;
+  // console.log(item);
+  // console.log(name);
   return (
-    <div className="pizza">
-      <img src={props.photoName} alt={props.name} />
+    <li className="pizza">
+      <img src={photoName} alt={name} />
       <div>
-        <h3>{props.name}</h3>
-        <p>{props.ingredients}</p>
-        <span>{props.price}</span>
+        <h3>{name}</h3>
+        <p>{ingredients}</p>
+        <span>{price}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
