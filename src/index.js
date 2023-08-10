@@ -29,15 +29,24 @@ function Menu() {
   return (
     <div className="menu">
       <h2>Our Menu</h2>
-      <ul className="pizzas">
-        {pizza.length ? (
-          pizza.map((item) => {
-            return <Pizza item={item} key={item.name} />;
-          })
-        ) : (
-          <h3>We are work with our menu.</h3>
-        )}
-      </ul>
+
+      {pizza.length ? (
+        <>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat
+            laudantium, eaque doloribus impedit distinctio provident earum neque
+            cupiditate id consectetur, et dolorem blanditiis, similique sed
+            commodi unde quia rerum veritatis.
+          </p>
+          <ul className="pizzas">
+            {pizza.map((item) => {
+              return <Pizza item={item} key={item.name} />;
+            })}
+          </ul>
+        </>
+      ) : (
+        <h3>We are work with our menu.</h3>
+      )}
     </div>
   );
 }
@@ -65,16 +74,16 @@ function Footer() {
 }
 
 function Pizza({ item }) {
-  const { name, photoName, ingredients, price } = item;
+  const { name, photoName, ingredients, price, soldOut } = item;
   // console.log(item);
   // console.log(name);
   return (
-    <li className="pizza">
+    <li className={`pizza${soldOut ? " sold-out" : ""}`}>
       <img src={photoName} alt={name} />
       <div>
         <h3>{name}</h3>
         <p>{ingredients}</p>
-        <span>{price}</span>
+        <span>{soldOut ? "SOLD OUT" : price}</span>
       </div>
     </li>
   );
